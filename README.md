@@ -8,4 +8,4 @@ https://console.cloudinary.com/app/c-5de45d7996521efd97eb8cf748b6cd/assets/media
 
 https://supabase.com/dashboard/project/vlxhlzrkppvzjpnmjzyo/editor/17250
 
-https://supabase.com/dashboard/project/vlxhlzrkppvzjpnmjzyo/settings/api
+https://supabase.com/dashboard/project/vlxhlzrkppvzjpnmjzyo/settings/api# REACT-SCP-CRUD
