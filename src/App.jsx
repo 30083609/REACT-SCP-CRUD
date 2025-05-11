@@ -1,36 +1,45 @@
-import React, { useEffect, useState } from 'react'
-import { supabase } from './supabaseClient'
-import SCPForm from './components/SCPForm'
-import SCPCard from './components/SCPCard'
-import Landing from './Landing'
+import React, { useState } from 'react';
+import './styles.css';
+import Landing from './Landing';
+import MainMenu from './components/MainMenu';
+import SCPForm from './components/SCPForm';
+import Read from './Read';
 
 const App = () => {
-  const [entries, setEntries] = useState([])
-  const [showMain, setShowMain] = useState(false)
+  const [stage, setStage] = useState('landing'); // landing → menu → section
+  const [activeView, setActiveView] = useState('Create');
 
-  const fetchEntries = async () => {
-    const { data, error } = await supabase.from('SCP-CRUD').select('*').order('created_at', { ascending: false })
-    if (error) console.error(error)
-    else setEntries(data)
-  }
+  const handleEnter = () => setStage('menu');
 
-  useEffect(() => {
-    if (showMain) fetchEntries()
-  }, [showMain])
-
-  if (!showMain) return <Landing onEnter={() => setShowMain(true)} />
+  const handleViewChange = (view) => {
+    setActiveView(view);
+    setStage('crud');
+  };
 
   return (
-    <div>
-      <h1>SCP CRUD Portal</h1>
-      <SCPForm onSubmit={fetchEntries} />
-      <div className="grid">
-        {entries.map((entry) => (
-          <SCPCard key={entry.id} data={entry} onUpdate={fetchEntries} />
-        ))}
-      </div>
-    </div>
-  )
-}
+    <div className="container">
+      {stage === 'landing' && <Landing onEnter={handleEnter} />}
 
-export default App
+      {stage === 'menu' && <MainMenu onSelect={handleViewChange} />}
+
+      {stage === 'crud' && (
+        <>
+          <div className="tab" style={{ justifyContent: 'center' }}>
+            <button onClick={() => setStage('menu')}>← Back to Menu</button>
+          </div>
+
+          {activeView === 'Create' && <SCPForm />}
+          {activeView === 'Read' && <Read />}
+          {activeView === 'Update' && (
+            <p style={{ textAlign: 'center', color: 'lime' }}>Update form coming soon...</p>
+          )}
+          {activeView === 'Delete' && (
+            <p style={{ textAlign: 'center', color: 'lime' }}>Delete interface coming soon...</p>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default App;

@@ -1,70 +1,147 @@
-import React, { useState } from 'react'
-import { supabase } from '../supabaseClient'
+import React, { useState } from 'react';
+import { supabase } from '../supabaseClient';
 
-const SCPForm = ({ onSubmit }) => {
-  const [scpNumber, setScpNumber] = useState('')
-  const [title, setTitle] = useState('')
-  const [objectClass, setObjectClass] = useState('')
-  const [description, setDescription] = useState('')
-  const [procedures, setProcedures] = useState('')
-  const [imageFile, setImageFile] = useState(null)
+const SCPForm = ({ onSubmit, editData = null, goBack }) => {
+  const [formData, setFormData] = useState(editData || {
+    scp_number: '',
+    title: '',
+    object_class: '',
+    description: '',
+    procedures: '',
+    image_file: null
+  });
 
-  const handleImageUpload = async () => {
-    if (!imageFile) return ''
-    const formData = new FormData()
-    formData.append('file', imageFile)
-    formData.append('upload_preset', 'unsigned') // your Cloudinary preset
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === 'image_file') {
+      setFormData((prev) => ({ ...prev, image_file: files[0] }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
 
-    const res = await fetch('https://api.cloudinary.com/v1_1/dfo9ahmct/image/upload', {
-      method: 'POST',
-      body: formData
-    })
+  const uploadImageToCloudinary = async (file) => {
+    const url = 'https://api.cloudinary.com/v1_1/dfo9ahmct/image/upload';
+    const form = new FormData();
+    form.append('file', file);
+    form.append('upload_preset', 'unsigned');
 
-    const data = await res.json()
-    return data.secure_url
-  }
+    const response = await fetch(url, { method: 'POST', body: form });
+    const data = await response.json();
+    return data.secure_url;
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!window.confirm('Are you sure you want to create this SCP?')) return
+    const confirmMsg = editData ? 'Update this SCP entry?' : 'Create new SCP entry?';
+    if (!window.confirm(confirmMsg)) return;
 
-    const image_url = await handleImageUpload()
-
-    const { error } = await supabase.from('SCP-CRUD').insert({
-      scp_number: scpNumber,
-      title,
-      object_class: objectClass,
-      description,
-      procedures,
-      image_url,
-      created_at: new Date().toISOString()
-    })
-
-    if (error) {
-      console.error('Insert error:', error)
-    } else {
-      setScpNumber('')
-      setTitle('')
-      setObjectClass('')
-      setDescription('')
-      setProcedures('')
-      setImageFile(null)
-      onSubmit()
+    let imageUrl = editData?.image_url || '';
+    if (formData.image_file) {
+      imageUrl = await uploadImageToCloudinary(formData.image_file);
     }
-  }
+
+    const payload = {
+      scp_number: formData.scp_number,
+      title: formData.title,
+      object_class: formData.object_class,
+      description: formData.description,
+      procedures: formData.procedures,
+      image_url: imageUrl,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    if (editData) {
+      await supabase.from('scp_crud').update(payload).eq('id', editData.id);
+    } else {
+      await supabase.from('scp_crud').insert([payload]);
+    }
+
+    setFormData({
+      scp_number: '',
+      title: '',
+      object_class: '',
+      description: '',
+      procedures: '',
+      image_file: null
+    });
+
+    onSubmit();
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="SCP Number" value={scpNumber} onChange={e => setScpNumber(e.target.value)} required />
-      <input type="text" placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} required />
-      <input type="text" placeholder="Object Class" value={objectClass} onChange={e => setObjectClass(e.target.value)} required />
-      <textarea placeholder="Description" value={description} onChange={e => setDescription(e.target.value)} required />
-      <textarea placeholder="Procedures" value={procedures} onChange={e => setProcedures(e.target.value)} required />
-      <input type="file" onChange={e => setImageFile(e.target.files[0])} />
-      <button type="submit">Add SCP</button>
-    </form>
-  )
-}
+    <div className="create-wrapper">
+      {goBack && (
+        <button className="back-btn" onClick={goBack}>← Back to Menu</button>
+      )}
 
-export default SCPForm
+      <h2 className="scp-title">{editData ? 'Update SCP Entry' : 'Create New SCP Entry'}</h2>
+
+      <form onSubmit={handleSubmit} className="create-form">
+        <input
+          type="text"
+          name="scp_number"
+          placeholder="SCP Number"
+          value={formData.scp_number}
+          onChange={handleChange}
+          className="form-field"
+          required
+        />
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleChange}
+          className="form-field"
+          required
+        />
+        <input
+          type="text"
+          name="object_class"
+          placeholder="Object Class"
+          value={formData.object_class}
+          onChange={handleChange}
+          className="form-field"
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+          className="form-field"
+          required
+        />
+        <textarea
+          name="procedures"
+          placeholder="Special Containment Procedures"
+          value={formData.procedures}
+          onChange={handleChange}
+          className="form-field"
+          required
+        />
+        <input
+          type="file"
+          name="image_file"
+          accept="image/*"
+          onChange={handleChange}
+          className="form-field"
+        />
+
+        <div className="form-actions">
+          <button type="submit" className="submit-btn">
+            {editData ? 'Update SCP' : 'Add SCP'}
+          </button>
+          <button type="button" className="cancel-btn" onClick={goBack}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default SCPForm;
