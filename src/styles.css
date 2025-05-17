@@ -107,10 +107,10 @@ button:hover,
   background-color: #111;
   border: 1px solid lime;
   border-radius: 10px;
-  padding: 30px;
+  padding: 25px;
   width: 90%;
-  max-width: 700px;
-  margin: 30px auto;
+  max-width: 650px;
+  margin: 25px auto;
   box-shadow: 0 0 12px lime;
 }
 
