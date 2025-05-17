@@ -110,6 +110,7 @@ button:hover,
    ========================================================================== */
 .create-wrapper {
   max-width: 420px;
+  width: 100%;
   margin: 2rem auto;
   padding: 1.5rem;
   background-color: #111;
@@ -118,7 +119,6 @@ button:hover,
   box-shadow: 0 0 15px lime;
   overflow-x: hidden;
 }
-
 
 .create-form {
   display: flex;
@@ -136,7 +136,7 @@ button:hover,
 .form-field,
 input[type="file"],
 textarea {
-  width: 90%;
+  width: 100%;
   margin: 0.5rem 0;
   padding: 10px;
   border: 1px solid #00ff00;
@@ -240,8 +240,10 @@ input[type="file"]::-webkit-file-upload-button:hover {
 .modal {
   display: none;
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.9);
   z-index: 999;
   justify-content: center;
@@ -261,7 +263,8 @@ input[type="file"]::-webkit-file-upload-button:hover {
 
 .close {
   position: absolute;
-  top: 10px; right: 15px;
+  top: 10px;
+  right: 15px;
   font-size: 28px;
   color: lime;
   cursor: pointer;
