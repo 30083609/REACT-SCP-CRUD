@@ -576,3 +576,72 @@ html, body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ——————————————
+   Mobile‐friendly overrides
+   —————————————— */
+@media (max-width: 600px) {
+  /* make sure page never scrolls horizontally */
+  html, body {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* let your outer container fill the screen */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+    margin: 0;
+  }
+
+  /* same for the form wrapper */
+  .create-wrapper {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+    margin: 0 auto 20px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* stack the row of inputs */
+  .form-row-1 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* make every field fill width */
+  .form-field {
+    width: 100%;
+    margin: 8px 0;
+  }
+
+  /* make your submit button stretch */
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .submit-btn {
+    width: 100%;
+  }
+
+  /* stack tabs full-width */
+  .tab {
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .tab-button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 1rem;
+    min-width: unset;
+  }
+
+  /* for delete view, one card per row */
+  .delete-grid {
+    grid-template-columns: 1fr;
+  }
+}
