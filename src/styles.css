@@ -94,8 +94,8 @@ header {
   border: 1px solid lime;
   border-radius: 10px;
   padding: 30px;
-  width: 90%;
-  max-width: 600px;
+  width: 80%;
+  max-width: 700px;
   margin: 30px auto;
   box-shadow: 0 0 12px lime;
 }
