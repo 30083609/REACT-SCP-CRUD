@@ -384,50 +384,82 @@ body.modal-open {
   box-shadow: 0 0 10px lime;
 }
 
-/* ==========================================================================
-   9) MOBILE-FRIENDLY OVERRIDES
-   ========================================================================== */
+/* ================================================
+   MOBILE OVERRIDES (max‐width: 600px)
+   ================================================ */
 @media (max-width: 600px) {
+
+  /* 1) Kill any leftover horizontal padding on the <html> / <body> */
   html, body {
     overflow-x: hidden;
+    padding: 0;
+    margin: 0;
   }
+
+  /* 2) Make the outer container go full‐bleed */
   .container {
     width: 100%;
     max-width: 100%;
-    padding: 10px;
+    padding: 0;       /* drop that 20px gutter */
     margin: 0;
-  }
-  .create-wrapper {
-    width: 100%;
-    max-width: 100%;
-    padding: 15px;
-    margin: 0 auto 20px;
+    box-shadow: none; /* remove side glow that eats space */
     border-radius: 0;
-    box-shadow: none;
   }
+
+  /* 3) Let the form wrapper also stretch full width, with just a small inset */
+  .create-wrapper {
+    width: calc(100% - 2rem);  /* leave 1rem gutter each side */
+    max-width: 100%;
+    margin: 1rem auto 2rem;
+    padding: 1.5rem;           /* comfortable padding all around */
+    box-shadow: none;          /* remove shadow so it doesn’t overflow */
+    border-radius: 0.5rem;     /* keep a little rounding */
+  }
+
+  /* 4) Stack the top row of inputs vertically */
   .form-row-1 {
     flex-direction: column;
-    gap: 10px;
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
+
+  /* 5) Ensure every field really fills the wrapper */
   .create-form .form-field {
     width: 100%;
-    margin: 8px 0;
+    margin: 0.5rem 0;
   }
+
+  /* 6) Buttons go full-width too */
   .form-actions {
     flex-direction: column;
-    gap: 12px;
+    gap: 1rem;
   }
   .submit-btn,
   .cancel-btn {
     width: 100%;
   }
+
+  /* 7) Tabs should also stack & fill */
+  .tab {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
   .tab-button {
     width: 100%;
-    padding: 12px 0;
+    padding: 1rem 0;
     font-size: 1rem;
     min-width: unset;
   }
+
+  /* 8) Delete‐view: one card per row */
   .delete-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .delete-card {
+    width: calc(100% - 2rem);
+    max-width: none;
+    margin: 0 auto;
   }
 }
