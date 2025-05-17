@@ -109,14 +109,17 @@ button:hover,
    Forms (Create / Update)
    ========================================================================== */
 .create-wrapper {
-  width: 90%;
-  max-width: 380px;
+  width: 95%;
+  max-width: 420px;
   margin: 2rem auto;
   padding: 1.5rem;
-  box-shadow: none;
-  border-radius: 0.75rem;
+  background-color: #111;
+  border: 1px solid lime;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px lime;
   overflow-x: hidden;
 }
+
 
 .create-form {
   display: flex;
