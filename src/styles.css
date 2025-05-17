@@ -134,7 +134,7 @@ button:hover,
 .form-field,
 input[type="file"],
 textarea {
-  width: 100%;
+  width: 90%;
   margin: 0.5rem 0;
   padding: 10px;
   border: 1px solid #00ff00;
