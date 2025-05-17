@@ -1,12 +1,6 @@
 import React from 'react';
 import "../styles.css";
 
-/*
- Main menu with CRUD buttons.  
- Props:
- onSelect(tabName): callback for when user picks Create/Read/Update/Delete
- */
-
 const MainMenu = ({ onSelect }) => {
   return (
     <div className="tabcontent active">

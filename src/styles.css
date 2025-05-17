@@ -89,7 +89,6 @@ textarea {
   border: 1px solid lime;
   border-radius: 10px;
   padding: 30px;
-  width: 90%;
   max-width: 700px;
   margin: 30px auto;
   box-shadow: 0 0 12px lime;
@@ -220,7 +219,7 @@ button,
 .back-btn {
   background-color: black;
   color: lime;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-radius: 5px;
 }
 
@@ -313,7 +312,7 @@ button:hover,
 }
 
 .close:hover {
-  color: hwb(73 46% 4%);
+  color: red;
 }
 
 .modal-inner-box {
@@ -350,13 +349,11 @@ body.modal-open {
 }
 
 .scp-image-modal {
-  display: block;
   width: 100%;
-  max-height: 45vh;
+  max-height: 350px;
   object-fit: contain;
   border-radius: 6px;
   margin: 20px 0 10px;
-  padding: 4%;
 }
 
 .arrow-buttons {
@@ -378,8 +375,8 @@ body.modal-open {
   color: lime;
   border-radius: 4px;
   font-weight: bold;
-  padding: 1px 1px;
-  font-size: 12px;
+  padding: 6px 12px;
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -436,7 +433,6 @@ body.modal-open {
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/* ——— Delete Screen Styling ——— */
 
 /* Wrap the delete list in the same grid style you use for Read */
 .delete-grid {

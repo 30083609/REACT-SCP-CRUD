@@ -1,12 +1,6 @@
 import React from 'react'
 import './styles.css'
 
-/*
- Landing page — first screen.  
- Props:
- onEnter: callback to show the main menu.
- */ 
-
 const Landing = ({ onEnter }) => {
   return (
     <div className="landing-page">
