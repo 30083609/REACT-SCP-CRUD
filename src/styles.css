@@ -1,9 +1,23 @@
+/* ==========================================================================
+   1) GLOBAL RESET & BOX-SIZING
+   ========================================================================== */
+html {
+  box-sizing: border-box;
+  overflow-x: hidden;   /* prevent any horizontal scroll */
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   2) BODY & TYPOGRAPHY
+   ========================================================================== */
 body {
   background-color: black;
   color: #00ff00;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  margin: 0;
-  padding: 0;
 }
 
 header {
@@ -11,19 +25,22 @@ header {
   margin-bottom: 20px;
 }
 
-.title {
-  font-size: 2.5em;
-  text-shadow: 0 0 5px rgba(0, 255, 0, 0.8);
-  cursor: pointer;
-  user-select: none;
+.title,
+.scp-title {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .subtitle {
+  text-align: center;
   color: #00ff00;
   font-size: 1.2em;
   margin-top: -10px;
 }
 
+/* ==========================================================================
+   3) CONTAINER & NAV TABS
+   ========================================================================== */
 .container {
   width: 90%;
   max-width: 800px;
@@ -54,7 +71,6 @@ header {
   transition: all 0.3s ease;
   min-width: 150px;
 }
-
 .tab-button:hover,
 .tab-button.active {
   background-color: black;
@@ -62,28 +78,17 @@ header {
   border: 2px solid #00ff00;
 }
 
-.tab-button:hover {
-  box-shadow: 0 0 10px lime;
+/* “Back to Menu” override */
+.back-btn {
+  background-color: black;
+  color: lime;
+  border-radius: 5px;
+  margin: 10px auto;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="file"],
-textarea {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #00ff00;
-  border-radius: 4px;
-  background-color: #111;
-  color: #00ff00;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-
+/* ==========================================================================
+   4) FORM (Create / Update)
+   ========================================================================== */
 .create-wrapper {
   background-color: #111;
   border: 1px solid lime;
@@ -94,25 +99,19 @@ textarea {
   margin: 30px auto;
   box-shadow: 0 0 12px lime;
 }
-
 .create-form {
   display: flex;
   flex-direction: column;
 }
-
-.create-form-row {
+.form-row-1 {
   display: flex;
   gap: 10px;
   margin-bottom: 15px;
 }
-
-.create-form-row .form-field {
+.form-row-1 .form-field {
   flex: 1;
-  margin: 0;
 }
-
 .create-form .form-field {
-  box-sizing: border-box;
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -121,29 +120,12 @@ textarea {
   background-color: #111;
   color: #00ff00;
 }
-
 .create-form .form-field::placeholder {
   color: #00ff00;
   opacity: 0.7;
 }
-
-.create-form input[type="file"]::-webkit-file-upload-button {
-  padding: 10px;
-  border: 1px solid #00ff00;
-  border-radius: 4px;
-  background-color: #111;
-  color: #00ff00;
-  cursor: pointer;
-  transition: 0.3s ease;
-}
-
-.create-form input[type="file"]::-webkit-file-upload-button:hover {
-  background-color: black;
-  color: lime;
-  border-color: lime;
-  box-shadow: 0 0 10px lime;
-}
-
+/* file input */
+.create-form input[type="file"]::-webkit-file-upload-button,
 .create-form input[type="file"]::file-selector-button {
   padding: 10px;
   border: 1px solid #00ff00;
@@ -153,7 +135,7 @@ textarea {
   cursor: pointer;
   transition: 0.3s ease;
 }
-
+.create-form input[type="file"]::-webkit-file-upload-button:hover,
 .create-form input[type="file"]::file-selector-button:hover {
   background-color: black;
   color: lime;
@@ -161,79 +143,52 @@ textarea {
   box-shadow: 0 0 10px lime;
 }
 
+/* textarea */
+.create-form .create-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* form buttons */
 .form-actions {
   display: flex;
   gap: 10px;
   margin-top: 20px;
 }
-
-.submit-btn {
-  background-color: lime;
-  color: black;
+.submit-btn,
+.cancel-btn {
   padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s ease;
 }
-
+.submit-btn {
+  background-color: lime;
+  color: black;
+  border: none;
+  border-radius: 6px;
+}
 .submit-btn:hover {
   background: black;
   color: lime;
   border: 1px solid lime;
   box-shadow: 0 0 10px lime;
 }
-
 .cancel-btn {
   background: transparent;
   color: lime;
-  padding: 12px 24px;
   border: 1px solid lime;
   border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s ease;
 }
-
 .cancel-btn:hover {
   background: lime;
   color: black;
   box-shadow: 0 0 10px lime;
 }
 
-button,
-.clear-button,
-#displayAllButton,
-.back-btn {
-  background-color: #00ff00;
-  color: black;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  margin: 8px;
-  transition: 0.3s ease;
-}
-
-.back-btn {
-  background-color: black;
-  color: lime;
-  margin-bottom: 20px;
-  border-radius: 5px;
-}
-
-button:hover,
-.clear-button:hover,
-#displayAllButton:hover,
-.back-btn:hover {
-  background-color: black;
-  color: lime;
-  border: 1px solid lime;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
-}
-
+/* ==========================================================================
+   5) CARD GRID (Read view)
+   ========================================================================== */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -241,246 +196,38 @@ button:hover,
   margin-top: 20px;
   justify-items: center;
 }
-
 .scp-card {
   background-color: #111;
   border: 1px solid lime;
-  padding: 10px;
   border-radius: 8px;
-  color: lime;
+  padding: 10px;
   width: 160px;
   text-align: center;
-  transition: transform 0.2s ease;
+  color: lime;
   cursor: pointer;
+  transition: transform 0.2s ease;
 }
-
 .scp-card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px lime;
 }
-
-.scp-card h3 {
-  margin: 0 0 10px;
-  font-size: 1rem;
-}
-
+/* thumbnail */
 .scp-image {
-  max-width: 100%;
+  width: 100%;
   height: 100px;
   object-fit: cover;
   border: 1px solid lime;
   border-radius: 4px;
-  transition: 0.2s ease;
+  transition: transform 0.2s ease;
 }
-
 .scp-image:hover {
   transform: scale(1.05);
   box-shadow: 0 0 10px lime;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.9);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-content {
-  position: relative;
-  max-width: 600px;
-  width: 90%;
-  z-index: 1001;
-}
-
-.close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 28px;
-  color: lime;
-  cursor: pointer;
-  z-index: 1002;
-}
-
-.close:hover {
-  color: hwb(73 46% 4%);
-}
-
-.modal-inner-box {
-  position: relative;
-  border: 1px solid lime;
-  padding: 20px 20px 80px;
-  border-radius: 10px;
-  background-color: #111;
-  color: lime;
-  box-shadow: 0 0 10px lime;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-.modal-inner-box::-webkit-scrollbar {
-  width: 2px;
-}
-
-.modal-inner-box::-webkit-scrollbar-track {
-  background: #111;
-}
-
-.modal-inner-box::-webkit-scrollbar-thumb {
-  background-color: lime;
-  border-radius: 6px;
-  border: 2px solid #111;
-}
-
-body.modal-open {
-  overflow: hidden;
-}
-
-.scp-image-modal {
-  display: block;
-  width: 100%;
-  max-height: 45vh;
-  object-fit: contain;
-  border-radius: 6px;
-  margin: 20px 0 10px;
-  padding: 4%;
-}
-
-.arrow-buttons {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  pointer-events: none;
-}
-
-.arrow-buttons button {
-  pointer-events: all;
-}
-
-.arrow-text-button {
-  background: transparent;
-  color: lime;
-  border-radius: 4px;
-  font-weight: bold;
-  padding: 1px 1px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.arrow-text-button:hover {
-  background: lime;
-  color: black;
-  box-shadow: 0 0 5px lime;
-}
-
-.empty-msg {
-  text-align: center;
-  color: lime;
-  font-style: italic;
-  margin-top: 2rem;
-}
-
-.landing-page {
-  height: 100vh;
-  background: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.landing-image {
-  width: 60%;
-  max-width: 500px;
-  border: 2px solid lime;
-  margin-bottom: 20px;
-}
-
-.landing-page button {
-  background: black;
-  color: lime;
-  font-weight: bold;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.landing-page button:hover {
-  background: lime;
-  color: black;
-  border: 1px solid lime;
-  box-shadow: 0 0 10px lime;
-}
-
-.scp-title {
-  text-align: center;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-}
-
-/* ——— Delete Screen Styling ——— */
-
-/* Wrap the delete list in the same grid style you use for Read */
-.delete-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-  justify-items: center;
-}
-
-/* Make each card match your SCP cards */
-.delete-card {
-  position: relative;
-  background: #111;
-  border: 1px solid lime;
-  border-radius: 8px;
-  padding: 16px;
-  width: 100%;
-  max-width: 240px;
-  text-align: center;
-  box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.delete-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px lime;
-}
-
-/* Style the delete button */
-.delete-btn {
-  background-color: #e00;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 8px 12px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.delete-btn:hover {
-  background-color: #c00;
-}
-
-/* Delete‐view grid */
+/* ==========================================================================
+   6) DELETE VIEW
+   ========================================================================== */
 .delete-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -488,27 +235,25 @@ body.modal-open {
   margin-top: 20px;
   justify-items: center;
 }
-
-/* Individual SCP card in Delete view */
 .delete-card {
   background-color: #111;
   border: 1px solid lime;
   border-radius: 8px;
   padding: 20px;
-  width: 75%;
+  width: 100%;
   max-width: 300px;
   text-align: center;
   box-shadow: 0 0 10px lime;
-  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-/* Title within each delete card */
+.delete-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px lime;
+}
 .delete-card h3 {
-  margin: 0 0 1em;
+  margin-bottom: 1em;
   color: lime;
 }
-
-/* Delete button style */
 .delete-btn {
   background-color: #e00;
   color: black;
@@ -517,7 +262,7 @@ body.modal-open {
   padding: 10px 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
 }
 .delete-btn:hover:not(:disabled) {
   background-color: #c00;
@@ -527,76 +272,131 @@ body.modal-open {
   cursor: default;
 }
 
-/* make sure we never get a 1px horizontal scrollbar */
-html, body {
-  overflow-x: hidden;
+/* ==========================================================================
+   7) MODAL (Read detail popup)
+   ========================================================================== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+.modal.active {
+  display: flex;
+}
+.modal-content {
+  position: relative;
+  max-width: 600px;
+  width: 90%;
+  z-index: 1001;
+}
+.close {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 28px;
+  color: lime;
+  cursor: pointer;
+}
+.close:hover {
+  color: red;
+}
+.modal-inner-box {
+  border: 1px solid lime;
+  padding: 20px 20px 80px;
+  border-radius: 10px;
+  background-color: #111;
+  color: lime;
+  box-shadow: 0 0 10px lime;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-inner-box::-webkit-scrollbar {
+  width: 2px;
+}
+.modal-inner-box::-webkit-scrollbar-thumb {
+  background: lime;
+  border-radius: 6px;
+  border: 2px solid #111;
+}
+/* popup arrows */
+.arrow-buttons {
+  position: absolute;
+  bottom: 20px;
+  left: 20px; right: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.arrow-text-button {
+  background: transparent;
+  color: lime;
+  padding: 6px 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.arrow-text-button:hover {
+  background: lime;
+  color: black;
+  box-shadow: 0 0 5px lime;
 }
 
-/* include border-box everywhere so padding doesn’t blow out your widths */
-*, *::before, *::after {
-  box-sizing: border-box;
+/* ==========================================================================
+   8) UTILITY & LANDING
+   ========================================================================== */
+body.modal-open {
+  overflow: hidden;
+}
+.empty-msg {
+  text-align: center;
+  color: lime;
+  font-style: italic;
+  margin-top: 2rem;
+}
+.landing-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.landing-image {
+  width: 60%;
+  max-width: 500px;
+  border: 2px solid lime;
+  margin-bottom: 20px;
+}
+.landing-page button {
+  background: black;
+  color: lime;
+  font-weight: bold;
+  padding: 12px 24px;
+  border: 1px solid lime;
+  border-radius: 5px;
+}
+.landing-page button:hover {
+  background: lime;
+  color: black;
+  box-shadow: 0 0 10px lime;
 }
 
-/* on small screens, let everything fill 100% and stack nicely */
+/* ==========================================================================
+   9) MOBILE-FRIENDLY OVERRIDES
+   ========================================================================== */
 @media (max-width: 600px) {
-  .container,
-  .create-wrapper {
-    width: 95%;
-    max-width: none;      /* drop your desktop maxes */
-    padding: 15px;
-    margin: 15px auto;
-  }
-
-  /* stack the three input fields instead of side-by-side */
-  .form-row-1 {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  /* make the tab buttons full width for easy tapping */
-  .tab {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .tab-button {
-    width: 100%;
-    max-width: none;
-    padding: 12px 0;
-    font-size: 1rem;
-  }
-
-  /* stack the form actions too */
-  .form-actions {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  /* for delete grids, one column is fine on phone */
-  .delete-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ——————————————
-   Mobile‐friendly overrides
-   —————————————— */
-@media (max-width: 600px) {
-  /* make sure page never scrolls horizontally */
   html, body {
     overflow-x: hidden;
-    padding: 0;
-    margin: 0;
   }
-
-  /* let your outer container fill the screen */
   .container {
     width: 100%;
     max-width: 100%;
     padding: 10px;
     margin: 0;
   }
-
-  /* same for the form wrapper */
   .create-wrapper {
     width: 100%;
     max-width: 100%;
@@ -605,33 +405,21 @@ html, body {
     border-radius: 0;
     box-shadow: none;
   }
-
-  /* stack the row of inputs */
   .form-row-1 {
     flex-direction: column;
     gap: 10px;
   }
-
-  /* make every field fill width */
-  .form-field {
+  .create-form .form-field {
     width: 100%;
     margin: 8px 0;
   }
-
-  /* make your submit button stretch */
   .form-actions {
     flex-direction: column;
     gap: 12px;
   }
-  .submit-btn {
+  .submit-btn,
+  .cancel-btn {
     width: 100%;
-  }
-
-  /* stack tabs full-width */
-  .tab {
-    flex-direction: column;
-    gap: 12px;
-    margin: 20px 0;
   }
   .tab-button {
     width: 100%;
@@ -639,8 +427,6 @@ html, body {
     font-size: 1rem;
     min-width: unset;
   }
-
-  /* for delete view, one card per row */
   .delete-grid {
     grid-template-columns: 1fr;
   }
