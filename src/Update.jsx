@@ -7,7 +7,7 @@ const Update = ({ goBack }) => {
   const [loading, setLoading] = useState(true);
   const [editData, setEditData] = useState(null);
 
-  // fetch all SCPs from Supabase
+  // Fetch SCPs from Supabase
   const fetchScps = async () => {
     setLoading(true);
     const { data, error } = await supabase
@@ -27,27 +27,23 @@ const Update = ({ goBack }) => {
     fetchScps();
   }, []);
 
-  // user clicked “Edit” on a card
   const handleEdit = (scp) => {
     setEditData({
       ...scp,
-      image_file: null,        // so form knows no new file unless they choose one
-      image_url: scp.image_url // pass along existing URL
+      image_file: null,
+      image_url: scp.image_url
     });
   };
 
-  // after they submit the form, clear editData and refresh list
-  const handleSubmit = () => {
+   const handleSubmit = () => {
     setEditData(null);
     fetchScps();
   };
 
-  // “Cancel” inside form
   const handleCancel = () => {
     setEditData(null);
   };
 
-  // if we're in “edit” mode, show the form
   if (editData) {
     return (
       <div className="tabcontent active">
@@ -63,7 +59,6 @@ const Update = ({ goBack }) => {
     );
   }
 
-  // otherwise, show the grid of cards to pick one to edit
   return (
     <div id="Update" className="tabcontent active">
       <h2 className="scp-title">Select an SCP to Update</h2>

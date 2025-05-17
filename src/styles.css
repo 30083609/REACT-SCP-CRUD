@@ -313,7 +313,7 @@ button:hover,
 }
 
 .close:hover {
-  color: red;
+  color: hwb(73 46% 4%);
 }
 
 .modal-inner-box {
@@ -332,7 +332,7 @@ button:hover,
 }
 
 .modal-inner-box::-webkit-scrollbar {
-  width: 10px;
+  width: 2px;
 }
 
 .modal-inner-box::-webkit-scrollbar-track {
@@ -350,11 +350,13 @@ body.modal-open {
 }
 
 .scp-image-modal {
+  display: block;
   width: 100%;
-  max-height: 350px;
+  max-height: 45vh;
   object-fit: contain;
   border-radius: 6px;
   margin: 20px 0 10px;
+  padding: 4%;
 }
 
 .arrow-buttons {
@@ -376,8 +378,8 @@ body.modal-open {
   color: lime;
   border-radius: 4px;
   font-weight: bold;
-  padding: 6px 12px;
-  font-size: 14px;
+  padding: 1px 1px;
+  font-size: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
