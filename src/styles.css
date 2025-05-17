@@ -363,7 +363,6 @@ body.modal-open {
   }
 
   .create-wrapper {
-    width: 95%;
     max-width: 95vw;
     margin: 1.5rem auto;
     padding: 1rem;
