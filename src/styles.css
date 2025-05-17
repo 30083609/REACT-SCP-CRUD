@@ -526,3 +526,53 @@ body.modal-open {
   opacity: 0.6;
   cursor: default;
 }
+
+/* make sure we never get a 1px horizontal scrollbar */
+html, body {
+  overflow-x: hidden;
+}
+
+/* include border-box everywhere so padding doesn’t blow out your widths */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* on small screens, let everything fill 100% and stack nicely */
+@media (max-width: 600px) {
+  .container,
+  .create-wrapper {
+    width: 95%;
+    max-width: none;      /* drop your desktop maxes */
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  /* stack the three input fields instead of side-by-side */
+  .form-row-1 {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* make the tab buttons full width for easy tapping */
+  .tab {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .tab-button {
+    width: 100%;
+    max-width: none;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  /* stack the form actions too */
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* for delete grids, one column is fine on phone */
+  .delete-grid {
+    grid-template-columns: 1fr;
+  }
+}
