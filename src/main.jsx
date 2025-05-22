@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles.css'
 
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
+// Initialize React in the #root element and start the render loop
+ReactDOM.createRoot(
+  document.getElementById('root')    // grab the DOM node with id="root"
+).render(
+  <React.StrictMode>                
+    <App />                         
   </React.StrictMode>
 )
