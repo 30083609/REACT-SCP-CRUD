@@ -11,7 +11,10 @@ const App = () => {
   const [stage,      setStage] = useState('landing');
   const [activeView, setView]  = useState('Create');
 
-  const handleEnter    = () => setStage('menu');
+  // Switch from Landing screen to Main Menu
+  const handleEnter = () => setStage('menu');
+
+  // Change which CRUD view is active and show the CRUD UI
   const handleViewChange = (view) => {
     setView(view);
     setStage('crud');
@@ -19,9 +22,17 @@ const App = () => {
 
   return (
     <div className="container">
-      {stage === 'landing' && <Landing onEnter={handleEnter} />}
+      {stage === 'landing' && (
+        <Landing
+          onEnter={handleEnter}     // when user clicks “enter”, call handleEnter()
+        />
+      )}
 
-      {stage === 'menu' && <MainMenu onSelect={handleViewChange} />}
+      {stage === 'menu' && (
+        <MainMenu
+          onSelect={handleViewChange}  // when user selects Create/Read/Update/Delete, call handleViewChange()
+        />
+      )}
 
       {stage === 'crud' && (
         <>
@@ -29,19 +40,41 @@ const App = () => {
           <div className="tab" style={{ justifyContent: 'center' }}>
             <button
               className="back-btn"
-              onClick={() => setStage('menu')}
+              onClick={() => setStage('menu')}  // back button: return to menu stage
             >
               ← Back to Menu
             </button>
           </div>
 
           {activeView === 'Create' && (
-            <SCPForm onSubmit={() => setStage('menu')}
-                     goBack={() => setStage('menu')} />
+            <SCPForm
+              onSubmit={() => {
+                // insert new SCP entry into DB then return to Main Menu
+                setStage('menu');
+              }}
+              goBack={() => setStage('menu')}  // cancel Create: just return to menu
+            />
           )}
-          {activeView === 'Read'   && <Read /> }
-          {activeView === 'Update' && <Update goBack={() => setStage('menu')} /> }
-          {activeView === 'Delete' && <Delete /> }
+
+          {activeView === 'Read' && (
+            <Read />
+            /* Read component:
+               - fetch all SCP entries from DB on mount
+               - display list/table of records */
+          )}
+
+          {activeView === 'Update' && (
+            <Update
+              goBack={() => setStage('menu')}  // after updating in DB, return to menu
+            />
+          )}
+
+          {activeView === 'Delete' && (
+            <Delete />
+            /* Delete component:
+               - fetch entries, allow selection
+               - delete selected entry from DB */
+          )}
         </>
       )}
     </div>
