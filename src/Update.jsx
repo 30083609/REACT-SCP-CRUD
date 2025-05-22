@@ -3,47 +3,53 @@ import { supabase } from './supabaseClient';
 import SCPForm from './SCPForm';
 
 const Update = ({ goBack }) => {
-  const [scps, setScps] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editData, setEditData] = useState(null);
+  const [scps,     setScps]     = useState([]);   // list of entries for selection
+  const [loading,  setLoading]  = useState(true); // loading indicator
+  const [editData, setEditData] = useState(null); // data for the entry being edited
 
-  // Fetch SCPs from Supabase
+  // fetchScps: load all SCP records from Supabase, sorted by scp_number
   const fetchScps = async () => {
     setLoading(true);
     const { data, error } = await supabase
-      .from('scp_crud')
-      .select('*')
-      .order('scp_number', { ascending: true });
+      .from('scp_crud')                      // DB interaction: select from table
+      .select('*')                           // retrieve all columns
+      .order('scp_number', { ascending: true }); // sort by SCP number
+
     if (error) {
       console.error('Error loading SCPs:', error);
-      setScps([]);
+      setScps([]);                           // clear list on error
     } else {
-      setScps(data);
+      setScps(data);                         // populate state with fetched data
     }
     setLoading(false);
   };
 
+  // on mount: fetch the list once
   useEffect(() => {
     fetchScps();
   }, []);
 
+  // handleEdit: prepare selected SCP for editing in the form
   const handleEdit = (scp) => {
     setEditData({
       ...scp,
-      image_file: null,
+      image_file: null,       // reset file input
       image_url: scp.image_url
     });
   };
 
-   const handleSubmit = () => {
+  // handleSubmit: after form submission, clear editData and refresh list
+  const handleSubmit = () => {
     setEditData(null);
-    fetchScps();
+    fetchScps();              // reload updated data from DB
   };
 
+  // handleCancel: cancel editing and return to selection list
   const handleCancel = () => {
     setEditData(null);
   };
 
+  // if in edit mode, show the SCPForm with preloaded data
   if (editData) {
     return (
       <div className="tabcontent active">
@@ -51,14 +57,15 @@ const Update = ({ goBack }) => {
           ← Back to List
         </button>
         <SCPForm
-          editData={editData}
-          onSubmit={handleSubmit}
-          goBack={handleCancel}
+          editData={editData}   // pass current entry to form for editing
+          onSubmit={handleSubmit} 
+          goBack={handleCancel} // allow form to cancel
         />
       </div>
     );
   }
 
+  // default view: show grid of entries to choose from
   return (
     <div id="Update" className="tabcontent active">
       <h2 className="scp-title">Select an SCP to Update</h2>
@@ -83,7 +90,7 @@ const Update = ({ goBack }) => {
               <button
                 className="submit-btn"
                 style={{ marginTop: '0.5rem' }}
-                onClick={() => handleEdit(scp)}
+                onClick={() => handleEdit(scp)} // enter edit mode for this SCP
               >
                 Edit
               </button>
