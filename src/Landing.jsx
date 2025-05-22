@@ -1,6 +1,7 @@
 import React from 'react'
 import './styles.css'
 
+// Landing component: displays the splash image and “Enter” button
 const Landing = ({ onEnter }) => {
   return (
     <div className="landing-page">
@@ -10,7 +11,11 @@ const Landing = ({ onEnter }) => {
         className="landing-image"
       />
 
-      <button onClick={onEnter}>Enter</button>
+      <button
+        onClick={onEnter}  // call App.handleEnter to advance from landing to menu
+      >
+        Enter
+      </button>
     </div>
   )
 }
